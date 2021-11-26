@@ -13,7 +13,6 @@ new=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ prin
 if [ "$old" = "$new" ]; then
    echo "IP is unchanged... this is for testing" >>/dev/null 2>&1
    else
-   echo "IP changed at $timestamp from  $old to $new" >> ~/scripts/IPs.txt
    wget -O dyn.txt -q https://$user:$pass@domains.google.com/nic/update?hostname=$host
    echo "The IP address has changed on `date +%Y-%m-%d` at `date +%H:%M` from $old to $new" | mail -s "The IP on `$HOSTNAME` has changed" $email
 fi
