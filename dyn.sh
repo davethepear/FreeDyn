@@ -7,6 +7,11 @@ email=myemail@gmail.com
 
 timestamp=$( date +%Y-%m-%d_%H:%M )
 old=$(nslookup $host |  awk '/Name:/{val=$NF;flag=1;next} /Address:/ && flag{print $NF}') # asks locally what your IP is for the Dynamic DNS
+if [ ! -z "$old" ]; then
+   echo "$old" > ~/.oldip.txt
+   else
+   old=`cat ~/.oldip.txt`
+fi
 new=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}') # Asks Google for your IP - only use ONE, comment others out!
 # new=$(dig +short myip.opendns.com @resolver1.opendns.com) # Asks OpenDNS for your IP - only use ONE, comment others out!
 # new=$(wget -qO- $ipfile) # Asks your site for your IP - only use ONE, comment others out!
