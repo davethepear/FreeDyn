@@ -12,10 +12,12 @@ if [ ! -z "$old" ]; then
    else
    old=`cat ~/.oldip.txt`
 fi
-new=$(wget -q -O - http://icanhazip.com/) # Askes icanhasip for your IP - only use ONE, comment others out!
-# new=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}') # Asks Google for your IP - only use ONE, comment others out!
-# new=$(dig +short myip.opendns.com @resolver1.opendns.com) # Asks OpenDNS for your IP - only use ONE, comment others out!
-# new=$(wget -qO- $ipfile) # Asks your site for your IP - Make sure ipfile is set above! - only use ONE, comment others out!
+new=$(wget -qO- $ipfile)
+if [ -z "new" ]; then echo "Asking icanhazip for your IP" | new=$(wget -q -O - http://icanhazip.com/) ; fi
+if [ -z "new" ]; then echo "Asking google for your IP" | new=$(dig TXT +short o-o.myaddr.l.google.com @ns1.google.com | awk -F'"' '{ print $2}') ; fi
+if [ -z "new" ]; then echo "Asking opendns for your IP" | new=$(dig +short myip.opendns.com @resolver1.opendns.com) ; fi
+if [ -z "new" ]; then echo "Unable to get current IP, possibly offline" | exit 1 ; fi
+
 if [ "$old" = "$new" ]; then
    echo "IP is unchanged... this is for testing" >>/dev/null 2>&1
    else
