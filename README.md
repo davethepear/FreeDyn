@@ -1,5 +1,5 @@
 # FreeDyn
-DynDns has gotten to be rather expensive for personal use...
+DynDns has gotten to be rather expensive for personal use... and since squareface is taking over google domains, this likely won't work anymore... so, who GAF?
 
 # Required to work
 - Google Domain hosted domain name, like daveisagoober.com - https://domains.google.com - it's $12 per year for most domains.
